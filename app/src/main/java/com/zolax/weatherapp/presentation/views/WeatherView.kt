@@ -1,12 +1,14 @@
 package com.zolax.weatherapp.presentation.views
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import android.graphics.BitmapFactory
+
+import android.graphics.Bitmap
+import com.zolax.weatherapp.R
+
 
 class WeatherView(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
 
@@ -34,7 +36,8 @@ class WeatherView(context: Context, attributeSet: AttributeSet) : View(context, 
     }
 
     private fun drawClouds(canvas: Canvas?) {
-
+        val bmp = BitmapFactory.decodeResource(resources, R.drawable.weather_view_clouds)
+        canvas?.drawBitmap(bmp,width/2f - 64f,height/2f - 64f,null)
     }
 
     private fun drawRain(canvas: Canvas?) {
