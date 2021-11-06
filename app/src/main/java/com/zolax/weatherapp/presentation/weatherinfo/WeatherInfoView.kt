@@ -1,7 +1,9 @@
 package com.zolax.weatherapp.presentation.weatherinfo
 
-interface WeatherInfoView {
+import com.zolax.weatherapp.utils.ActivityView
+import com.zolax.weatherapp.utils.LoadingView
+
+interface WeatherInfoView : LoadingView,ActivityView {
     fun showWeather(text: String)
-    fun showLoading(isShow:Boolean)
     fun showError(text: String)
 }

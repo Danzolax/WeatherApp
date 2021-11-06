@@ -5,7 +5,7 @@ import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface WeatherReqeustApi {
+interface WeatherService {
     @GET("data/2.5/weather")
     fun getCurrentWeather(@Query("q") city:String, @Query("appid") key: String): Observable<Response>
 }

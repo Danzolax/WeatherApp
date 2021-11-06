@@ -2,24 +2,36 @@ package com.zolax.weatherapp.presentation.weatherinfo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.google.android.material.snackbar.Snackbar
-import com.zolax.weatherapp.data.api.Network
+import com.zolax.weatherapp.data.api.WeatherService
 import com.zolax.weatherapp.databinding.ActivityWeatherInfoBinding
+import com.zolax.weatherapp.utils.appComponent
+import dagger.Lazy
 import timber.log.Timber
+import javax.inject.Inject
+
+
+
 
 class WeatherInfoActivity : AppCompatActivity(), WeatherInfoView {
 
     private lateinit var binding: ActivityWeatherInfoBinding
 
-    private var weatherInfoPresenter: WeatherInfoPresenter = WeatherInfoPresenter(this,Network)
+    @Inject
+    lateinit var api: WeatherService
+
+
+    @Inject
+    lateinit var weatherInfoPresenterFactory: WeatherInfoPresenter.Factory
+
+    private val weatherInfoPresenter: WeatherInfoPresenter? by lazy { weatherInfoPresenterFactory.create(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        appComponent.inject(this)
         binding = ActivityWeatherInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        weatherInfoPresenter.loadWeather()
+        weatherInfoPresenter?.loadWeather()
     }
 
     override fun showWeather(text: String){
@@ -33,6 +45,10 @@ class WeatherInfoActivity : AppCompatActivity(), WeatherInfoView {
     override fun showError(text: String) {
         Snackbar.make(binding.root,text,Snackbar.LENGTH_SHORT).show()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+     }
 
 
 }
