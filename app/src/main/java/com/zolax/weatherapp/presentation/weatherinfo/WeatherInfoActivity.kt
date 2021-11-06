@@ -24,15 +24,18 @@ class WeatherInfoActivity : AppCompatActivity(), WeatherInfoView {
     @Inject
     lateinit var weatherInfoPresenterFactory: WeatherInfoPresenter.Factory
 
-    private val weatherInfoPresenter: WeatherInfoPresenter? by lazy { weatherInfoPresenterFactory.create(this) }
+    private val weatherInfoPresenter: WeatherInfoPresenter by lazy { weatherInfoPresenterFactory.create(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
         binding = ActivityWeatherInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        weatherInfoPresenter?.loadWeather()
+        weatherInfoPresenter.loadWeather()
     }
+
+
+
 
     override fun showWeather(text: String){
         binding.text.text = text
