@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import com.zolax.weatherapp.data.api.WeatherService
 import com.zolax.weatherapp.databinding.ActivityWeatherInfoBinding
+import com.zolax.weatherapp.presentation.views.WeatherView
 import com.zolax.weatherapp.utils.appComponent
 import dagger.Lazy
 import timber.log.Timber
@@ -49,9 +50,8 @@ class WeatherInfoActivity : AppCompatActivity(), WeatherInfoView {
         Snackbar.make(binding.root,text,Snackbar.LENGTH_SHORT).show()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-     }
-
+    override fun showWeatherType(type: WeatherView.WeatherType) {
+        binding.weatherType.setWeatherType(type)
+    }
 
 }
